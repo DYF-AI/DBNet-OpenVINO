@@ -12,4 +12,4 @@
 __pycache__/
 .idea/
 output/
-test/*.jpg
+#test/*.jpg
