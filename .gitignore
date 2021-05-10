@@ -8,6 +8,7 @@
 *.onnx
 *.xml
 *.bin
+.mapping
 __pycache__/
 .idea/
 output/
