@@ -295,4 +295,3 @@ if __name__ == '__main__':
         save_result(output_path.replace('_result.jpg', '.txt'), boxes_list, score_list, args.polygon)
 
  
-# python3 tools/predict.py --model_path /source/code/dongyfy/code/AI/src/dyf_test/DBNet.pytorch/openvino/model_best.pth --input_folder ./input --output_folder ./output --thre 0.7 --onnx True
