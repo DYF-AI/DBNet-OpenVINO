@@ -9,11 +9,14 @@
 ## 安装环境
 
 请参考原始版本的[Readme](https://github.com/WenmuZhou/DBNet.pytorch/blob/master/README.MD)
-
 ## How to run openvino
-1.下载代码训练的模型地址：[渣云：访问密码 myj4 ](https://pan.baidu.com/s/10Ff-0AJkkpC9jGWdNSsN6g)，将模型放到onnx-xml文件夹 (仅供演示，该模型为训练完全)
+1.下载代码训练的模型地址：[渣云：访问密码 myj4 ](https://pan.baidu.com/s/10Ff-0AJkkpC9jGWdNSsN6g)，将模型放到onnx-xml文件夹 (仅供演示，该模型未训练完全)
 2.执行 predict_openvino.sh
+- 不包含预处理和后处理时间（不同的CPU推理时间会存在差异）
 
+|  time(ms)   | pytorch  | onnxrt | openvino
+|  ----  | ----  | ---- |---- |
+| inference  | 400ms | 278ms    |150ms|
 
 ## 修改之处
 

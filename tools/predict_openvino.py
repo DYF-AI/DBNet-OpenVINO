@@ -82,8 +82,8 @@ class Pytorch_model:
                 self.transform.append(t)
         self.transform = get_transforms(self.transform)
         
-        self.init_ie()
         self.init_onnx_session()
+        self.init_ie()
 
     def predict(self, img_path: str, is_output_polygon=False, short_size: int = 1024):
         '''
@@ -255,6 +255,7 @@ def init_args():
     parser.add_argument('--save_resut', action='store_true', help='save box and score to txt file')
     parser.add_argument('--save_wts', default=False, help='save box and score to txt file')
     parser.add_argument('--onnx', default=False, help='save box and score to txt file')
+    parser.add_argument('--inference', default="openvino", help='pytorch, onnxrt, openvino')
     args = parser.parse_args()
     return args
 
@@ -277,9 +278,14 @@ if __name__ == '__main__':
     img_folder = pathlib.Path(args.input_folder)
     for img_path in tqdm(get_file_list(args.input_folder, p_postfix=['.jpg'])):
         print("img_path:", img_path)
-        #preds, boxes_list, score_list, t = model.predict(img_path, is_output_polygon=args.polygon)
-        #preds, boxes_list, score_list, t = model.predict_onnx(img_path, is_output_polygon=args.polygon)
-        preds, boxes_list, score_list, t = model.predict_vino(img_path, is_output_polygon=args.polygon)
+        if args.inference == "pytorch":
+            preds, boxes_list, score_list, t = model.predict(img_path, is_output_polygon=args.polygon)
+        elif args.inference == "onnxrt":
+            preds, boxes_list, score_list, t = model.predict_onnx(img_path, is_output_polygon=args.polygon)
+        elif args.inference == "openvino":
+            preds, boxes_list, score_list, t = model.predict_vino(img_path, is_output_polygon=args.polygon)
+        else:
+            print("no support inference model")
         img = draw_bbox(cv2.imread(img_path)[:, :, ::-1], boxes_list)
         if args.show:
             show_img(preds)
